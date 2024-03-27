@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if services is iterable %}
+        {% for service in services %}
+            {% set nurse = Nurse.query.filter_by(id=service.nurse_id).first() %}
+            {% set user = User.query.filter_by(id=nurse.user_id).first() %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
+                        <small class="text-muted">{{ service.to_dict()['created_at']}}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{ url_for('services.service', id=service.id) }}">{{ service.to_dict()['title'] }}</a></h2>
+                    <p class="article-content">{{ service.to_dict()['description'] }}</p>
+                    <p class="article-content">Price: {{ service.to_dict()['price'] }}$</p>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        {% set nurse = Nurse.query.filter_by(id=services.nurse_id).first() %}
+        {% set user = User.query.filter_by(id=nurse.user_id).first() %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
+                    <small class="text-muted">{{ services.to_dict()['created_at']}}</small>
+                </div>
+                <h2><a class="article-title" href="{{ url_for('services.service', id=service.id) }}">{{ services.to_dict()['title'] }}</a></h2>
+                <p class="article-content">{{ services.to_dict()['description'] }}</p>
+                <p class="article-content">Price: {{ services.to_dict()['price'] }}$</p>
+            </div>
+        </article>
+    {% endif %}
+{% endblock %}

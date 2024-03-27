@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+                <p class="text-secondary">{{ user.user_type }}</p>
+                <p class="text-secondary">Joined on {{ user.created_at }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="content-section">
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="content-section">
+        <h3>Still curious?</h3>
+        <p class='text-muted'>Discover Further</p>
+        <div class="row">
+            <div class="col mb-2">
+                <a href="{{ url_for('services.retrieve_nurse_services', id=nurse.id) }}" class="btn btn-outline-info btn-block">Services</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-2">
+                <a href="{{ url_for('services.retrieve_nurse_services', id=nurse.id) }}" class="btn btn-outline-info btn-block">Reviews</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-2">
+                <a href="" class="btn btn-outline-info btn-block">Ask {{ user.username }}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-2">
+                <a href="{{ url_for('appointments.book_appointment') }}" class="btn btn-outline-info btn-block">Book an Appointment</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

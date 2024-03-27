@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% set nurse = Nurse.query.filter_by(id=service.nurse_id).first() %}
+    {% set user = User.query.filter_by(id=nurse.user_id).first() %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
+                <small class="text-muted">{{ service.to_dict()['created_at']}}</small>
+                {% if user == current_user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('services.update_service', id=service.id) }}">Update</a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    </div>
+                {% endif %}
+            </div>
+            <h2 class="article-title">{{ service.to_dict()['title'] }}</h2>
+            <p class="article-content">{{ service.to_dict()['description'] }}</p>
+            <p class="article-content">Price: {{ service.to_dict()['price'] }}$</p>
+            <div>
+                {% if current_user != user %}
+                <a href="{{ url_for('appointments.book_appointment', id=service.id) }}" class="btn btn-primary">Book an appointment</a>
+                    <a href="#" class="btn btn-secondary">Ask {{ user.username }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Service?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('services.delete_service', id=service.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
