@@ -20,7 +20,7 @@
             <p class="article-content">Price: {{ service.to_dict()['price'] }}$</p>
             <div>
                 {% if current_user != user %}
-                <a href="{{ url_for('appointments.book_appointment', id=service.id) }}" class="btn btn-primary">Book an appointment</a>
+                <a href="{{ url_for('appointments.book_appointment', id=service.id) }}" class="btn btn-brand">Book an appointment</a>
                     <a href="#" class="btn btn-secondary">Ask {{ user.username }}</a>
                 {% endif %}
             </div>

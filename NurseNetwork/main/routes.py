@@ -6,12 +6,8 @@ from NurseNetwork.models import Service, User, Nurse
 main = Blueprint('main', __name__)
 
 
-# with app.app_context():
-#     db.drop_all()
-#     db.create_all()
-
-@main.route("/")
-@main.route("/home")
+@main.route("/", strict_slashes=False)
+@main.route("/home", strict_slashes=False)
 def home():
     page = request.args.get('page', 1, type=int)
     services = Service.query.order_by(Service.created_at.desc())\
@@ -20,12 +16,12 @@ def home():
                            User=User, Nurse=Nurse)
 
 
-@main.route("/about")
+@main.route("/about", strict_slashes=False)
 def about():
     return render_template('about.html')
 
 
-@main.route("/privacy")
+@main.route("/privacy", strict_slashes=False)
 def privacy():
     return render_template('privacy.html')
 

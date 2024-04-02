@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% for appointment in appointments %}
+        {% set nurse = Nurse.query.filter_by(id=appointment.nurse_id).first() %}
+        {% set patient = Patient.query.filter_by(id=appointment.patient_id).first() %}
+        {% set user = User.query.filter_by(id=nurse.user_id).first() %}
+        {% set service = Service.query.filter_by(id=appointment.service_id).first() %}
+        <article class="media content-section mt-4">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
+                    <small class="text-muted">{{ appointment.to_dict()['created_at']}}</small>
+                </div>
+                <h4><a class="article-title" href="{{ url_for('appointments.retrieve_appointments', id=user.id) }}">Nurse: {{ user.to_dict()['username'] }}</a></h2>
+                <p class="article-content">Date: {{ appointment.to_dict()['appointment_date'] }}</p>
+                <p class="article-content">Service: <a href="{{ url_for('services.service', id=service.id) }}">{{ service.to_dict()['title'] }}</a></p>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock %}

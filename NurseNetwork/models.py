@@ -108,8 +108,9 @@ class Appointment(BaseModel, db.Model):
 
 
 class Review(BaseModel, db.Model):
+    description = db.Column(db.String(1500), nullable=True)
+    stars = db.Column(db.Integer, nullable=False)
     appointment_id = db.Column(db.Integer, db.ForeignKey('appointment.id'),
-                         nullable=False)
+                               nullable=False)
     nurse_id = db.Column(db.Integer, db.ForeignKey('nurse.id'),
                          nullable=False)
-    stars = db.Column(db.Integer, nullable=False)

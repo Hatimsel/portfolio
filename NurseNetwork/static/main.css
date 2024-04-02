@@ -1,27 +1,85 @@
+
+:root {
+    --c-dark: #212529;
+    --c-brand: #4e57d4;
+    --c-brand-light: #6970dd;
+    --c-brand-rgb: 78, 87, 212;
+    --c-body: #727272;
+    --font-base: sans-serif;
+    --box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.08);
+    --transition: all 0.5 ease;
+}
+
 body {
+  font-family: ;
   background: #fafafa;
-  color: #333333;
+  color: #727272;
+  line-height: 1.7;
   margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #444444;
+  font-weight: 600;
+  color: #212529;
+}
+
+a {
+    text-decoration: none;
+    color: #4e57d4;
+    transition: all 0.5 ease;
+}
+
+a:hover {
+    color: #6970dd;
 }
 
 .bg-steel {
   background-color: #5f788a;
 }
 
-.site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+.navbar {
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.08);
 }
 
+.site-header .navbar-nav .nav-link {
+    font-weight: 500;
+    color: #212529;
+}
+
+.site-header .navbar-nav .nav-link.active {
+    color: #4e57d4;
+}
+
+/* .site-header { */
+/*   color: #cbd5db; */
+/* } */
+
 .site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+  color: #4e57d4;
 }
 
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
+}
+
+.btn {
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 0;
+    padding: 10px 24px;
+}
+
+.btn-brand {
+    background-color: var(--c-brand);
+    border-color: var(--c-brand);
+    color: white;
+}
+
+.btn-brand:hover {
+    background-color: var(--c-brand-light);
+    border-color: var(--c-brand-light);
+    color: white;
 }
 
 .content-section {
@@ -29,6 +87,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
@@ -77,4 +136,57 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+/* Custom CSS */
+input[type="radio"] {
+    /* Your custom styles here */
+    list-style: none;
+}
+
+footer {
+    padding-top: 100px;
+}
+
+.footer-top {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+footer li, footer p, footer a {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .line {
+    width: 40px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.social-icons li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; /* Optional: Add some spacing between icons */
+}
+
+.social-icons li a {
+    margin-left: 10px;
 }

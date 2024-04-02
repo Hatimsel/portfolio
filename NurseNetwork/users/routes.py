@@ -129,6 +129,7 @@ def profile(user_id):
                            user=user, nurse=nurse,
                            image_file=image_file)
 
+
 @users.route('/users', methods=['GET'], strict_slashes=False)
 @users.route('/users/<id>', methods=['GET'], strict_slashes=False)
 def retrieve_users(id=None):

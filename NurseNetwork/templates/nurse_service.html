@@ -9,11 +9,11 @@
                 <div class="media-body">
                     <div class="article-metadata">
                         <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
-                        <small class="text-muted">{{ service.to_dict()['created_at']}}</small>
+                        <small class="text-muted">{{ service['created_at']}}</small>
                     </div>
-                    <h2><a class="article-title" href="{{ url_for('services.service', id=service.id) }}">{{ service.to_dict()['title'] }}</a></h2>
-                    <p class="article-content">{{ service.to_dict()['description'] }}</p>
-                    <p class="article-content">Price: {{ service.to_dict()['price'] }}$</p>
+                    <h2><a class="article-title" href="{{ url_for('services.service', id=service.id) }}">{{ service['title'] }}</a></h2>
+                    <p class="article-content">{{ service['description'] }}</p>
+                    <p class="article-content">Price: {{ service['price'] }}$</p>
                 </div>
             </article>
         {% endfor %}

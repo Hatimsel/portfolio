@@ -21,13 +21,15 @@ mail = Mail(app)
 
 from NurseNetwork.users.routes import users
 from NurseNetwork.services.routes import services
-from NurseNetwork.main.routes import main
 from NurseNetwork.appointments.routes import appointments
+from NurseNetwork.reviews.routes import reviews
+from NurseNetwork.main.routes import main
 
 
 app.register_blueprint(users)
 app.register_blueprint(services)
 app.register_blueprint(appointments)
+app.register_blueprint(reviews)
 app.register_blueprint(main)
 
 

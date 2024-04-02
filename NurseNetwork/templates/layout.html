@@ -7,8 +7,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="icon" href="../static/logo-dark.png" />
 
     {% if title %}
         <title>{{ title }}</title>
@@ -18,44 +22,105 @@
 </head>
 <body>
     <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-            <div class="container">
-            <a class="navbar-brand mr-4" href="/">NurseNetwork</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav mr-auto">
-                            <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-                            <a class="nav-item nav-link" href="{{url_for('main.about') }}">About</a>
-                </div>
-                <!-- Navbar Right Side -->
-                <div class="navbar-nav">
-                            {% if current_user.is_authenticated %}
-                                {% if current_user.user_type == 'nurse' %}
-                                    <a class="nav-item nav-link" href="{{ url_for('services.new_service') }}">New Service</a>
-                                {% endif %}
-                                <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-                                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-                            {% else %}
-                                <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-                                <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+        <nav class="navbar navbar-expand-lg bg-white fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand mr-4" href="{{ url_for('main.home') }}">
+                    <img src="../static/logo-dark.png" alt="">
+                </a>
+                <button class="navbar-toggler navbar-dark btn-brand" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+                        <a class="nav-item nav-link" href="https://hatimsel.github.io" target="_blank">About</a>
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% if current_user.is_authenticated %}
+                            {% if current_user.user_type == 'nurse' %}
+                                <a class="nav-item nav-link" href="{{ url_for('services.new_service') }}">New Service</a>
                             {% endif %}
+                            <a class="nav-item nav-link" href="{{ url_for('appointments.retrieve_appointments', id=current_user.id) }}">Appointments</a>
+                            <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+                            <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+                            <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
             </div>
         </nav>
     </header>
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
-            {% block content %}{% endblock %}
+                <section class="content-section">
+                    {% block content %}{% endblock %}
+                </section>
             </div>
             <div class="col-md-4">
                 {% block sidebar %}{% endblock %}
             </div>
         </div>
     </main>
+    <!-- footer -->
+    <footer class="bg-dark mt-4">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row gy-5 justify-content-between">
+                    <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="200">
+                        <h5 class="mb-0 mt-0 text-white"><img class="me-2" src="../static/logo-light.png" alt=""> NurseNetwork</h5>
+                        <div class="line"></div>
+                        <p>Facilitating personalized at-home healthcare experiences, our platform connects individuals with skilled nursing professionals, ensuring tailored care and comfort.</p>
+                    </div>
+                    <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="300">
+                        <h5 class="mb-0 text-white">ABOUT</h5>
+                        <div class="line"></div>
+                        <ul class="list">
+                            <li><a href="#">Home</a></li>
+                                <li><a href="{{ url_for('main.home') }}">Services</a></li>
+                            <li><a href="https://hatimsel.github.io/#reviews" target="_blank">Testimonials</a></li>
+                            <li><a href="https://github.com/Hatimsel" target="_blank">Team</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="300">
+                        <h5 class="mb-0 text-white">CONTACT US</h5>
+                        <div class="line"></div>
+                        <ul class="social-icons">
+                            <li><i class="ri-github-fill"></i><a href="https://github.com/Hatimsel" target="_blank">Github</a></li>
+                            <li><i class="ri-linkedin-fill"></i><a href="https://www.linkedin.com/in/hatim-selmun-b2746a269/" target="_blank">Linkedin</a></li>
+                            <li><i class="ri-twitter-x-line"></i><a href="https://twitter.com/HSelmun" target="_blank">X</a></li>
+                            <li><i class="ri-facebook-fill"></i><a href="https://facebook.com/hatim.salmoun" target="_blank">Facebook</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6" data-aos="fade-down" data-aos-delay="400">
+                        <h5 class="mb-0 text-white">FIND US</h5>
+                        <div class="line"></div>
+                        <ul class="list">
+                            <li>Tangier, CT 90010</li>
+                            <li>(212)755-845-562</li>
+                            <li>www.nursenetwork.site</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row g-4 justify-content-between">
+                    <div class="col-auto">
+                        <p class="mb-0"><i class="ri-copyright-line"></i> Copyright NurseNetwork. All Rights Reserved</p>
+                    </div>
+                    <div class="col-auto">
+                        <p class="mb-0">Designed By Hatim Selmun</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

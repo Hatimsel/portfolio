@@ -81,17 +81,16 @@ def retrieve_nurse_services(id, service_id=None):
     if service_id:
         service = Service.query.filter_by(id=service_id).first()
         if service:
-            return render_template('nurse_service.html', services=service)
-            # return jsonify(service.to_dict())
+            return render_template('nurse_service.html', services=service,
+                                   Nurse=Nurse, User=User)
         abort(404)
-    nurse = Nurse.query.filter_by(id=id).first()
-    if nurse:
-        services = nurse.services
-        if len(services) > 0:
-            services_tojson = []
-            for i in range(0, len(services)):
-                services_tojson.append(services[i].to_dict())
-            return render_template('nurse_service.html', service=services)
-            # return jsonify(services_tojson)
-        return jsonify({"Error": "No services found!"})
-    return jsonify({"Error": "Nurse not found!"})
+    nurse = Nurse.query.filter_by(user_id=id).first()
+    services = nurse.services
+    if len(services) > 0:
+        services_tojson = []
+        for i in range(0, len(services)):
+            services_tojson.append(services[i].to_dict())
+        return render_template('nurse_service.html', services=services_tojson,
+                               Nurse=Nurse, User=User)
+    flash('No services found!')
+    return redirect(url_for('main.home'))

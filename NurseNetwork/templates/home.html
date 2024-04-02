@@ -3,7 +3,7 @@
     {% for service in services.items %}
         {% set nurse = Nurse.query.filter_by(id=service.nurse_id).first() %}
         {% set user = User.query.filter_by(id=nurse.user_id).first() %}
-        <article class="media content-section">
+        <article class="media content-section mt-4">
             <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
             <div class="media-body">
                 <div class="article-metadata">
@@ -21,7 +21,7 @@
             {% if services.page == page_num %}
                 <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
             {% else %}
-                <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                <a class="btn btn-brand mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
             {% endif %}
         {% else %}
             ...

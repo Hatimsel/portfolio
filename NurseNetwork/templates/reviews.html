@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if reviews is iterable %}
+        {% for review in reviews %}
+            {% set appointment = Appointment.query.filter_by(id=review.appointment_id).first() %}
+            {% set patient = Patient.query.filter_by(id=appointment.patient_id).first() %}
+            {% set user = User.query.filter_by(id=patient.user_id).first() %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
+                        <small class="text-muted">{{ review['created_at']}}</small>
+                    </div>
+                    <p class="article-content">{{ review['description'] }}</p>
+                    <p class="article-content">Stars: {{ review['stars'] }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        {% set appointment = Appointment.query.filter_by(id=review.appointment_id).first() %}
+        {% set patient = Patient.query.filter_by(id=appointment.patient_id).first() %}
+        {% set user = User.query.filter_by(id=patient.user_id).first() %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename=user.image_file) }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('users.profile', user_id=user.id) }}">{{ user.username }}</a>
+                    <small class="text-muted">{{ reviews.to_dict()['created_at']}}</small>
+                </div>
+                <p class="article-content">{{ reviews.to_dict()['description'] }}</p>
+                <p class="article-content">Stars: {{ reviews.to_dict()['stars'] }}</p>
+            </div>
+        </article>
+    {% endif %}
+{% endblock %}
