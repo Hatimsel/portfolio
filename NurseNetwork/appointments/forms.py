@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Appointment forms
+"""
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, validators
 from wtforms.validators import DataRequired

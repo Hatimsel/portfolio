@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Users routes
+"""
 from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
 from NurseNetwork import db, bcrypt
@@ -9,11 +11,13 @@ from NurseNetwork.users.forms import (RegistrationForm, LoginForm, UpdateAccount
 from NurseNetwork.users.utils import save_picture, send_reset_email
 
 
-
 users = Blueprint('users', __name__)
 
-@users.route("/register", methods=['GET', 'POST'])
+
+@users.route("/register", methods=['GET', 'POST'],
+        strict_slashes=False)
 def register():
+    """Registers a new user"""
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RegistrationForm()
@@ -37,8 +41,10 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@users.route("/login", methods=['GET', 'POST'])
+@users.route("/login", methods=['GET', 'POST'],
+        strict_slashes=False)
 def login():
+    """Logs the user in"""
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = LoginForm()
@@ -54,8 +60,9 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
-@users.route("/logout")
+@users.route("/logout", strict_slashes=False)
 def logout():
+    """Logs the user out"""
     logout_user()
     return redirect(url_for('main.home'))
 
@@ -99,9 +106,11 @@ def reset_token(token):
     return redirect(url_for('main.home'))
 
 
-@users.route("/account", methods=['GET', 'POST'])
+@users.route("/account", strict_slashes=False,
+        methods=['GET', 'POST'])
 @login_required
 def account(id=None):
+    """The user's account page"""
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.profile_pic.data:
@@ -120,8 +129,10 @@ def account(id=None):
                            image_file=image_file, form=form)
 
 
-@users.route("/profile/<user_id>", strict_slashes=False, methods=['GET'])
+@users.route("/profile/<user_id>", strict_slashes=False,
+        methods=['GET'])
 def profile(user_id):
+    """The user's profile page"""
     user = User.query.get_or_404(user_id)
     nurse = Nurse.query.filter_by(user_id=user_id).first()
     image_file = url_for('static', filename=user.image_file)
@@ -133,6 +144,7 @@ def profile(user_id):
 @users.route('/users', methods=['GET'], strict_slashes=False)
 @users.route('/users/<id>', methods=['GET'], strict_slashes=False)
 def retrieve_users(id=None):
+    """Retrieves a user by its id if available, else all users"""
     if id:
         user = User.query.filter_by(id=id).first()
         if user:

@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Review routes
+"""
 from flask import render_template, url_for, flash, redirect, Blueprint
 from flask_login import current_user, login_required
 from NurseNetwork import db
@@ -14,6 +16,7 @@ reviews = Blueprint('reviews', __name__)
                strict_slashes=False)
 @login_required
 def new_review(id):
+    """Creates a new review"""
     form = ReviewForm()
     if form.validate_on_submit():
         appointment = Appointment.query.filter_by(id=id).first()
@@ -37,6 +40,7 @@ def new_review(id):
 @reviews.route('/account/<id>/reviews/<review_id>', methods=['GET'],
            strict_slashes=False)
 def retrieve_reviews(id, review_id=None):
+    """Retrieves a review"""
     if review_id:
         review = Review.query.filter_by(id=review_id).first()
         if review:
@@ -44,7 +48,6 @@ def retrieve_reviews(id, review_id=None):
                 'reviews.html', reviews=reviews, User=User,
                 Nurse=Nurse, Patient=Patient, Appointment=Appointment
             )
-            # return jsonify(review.to_dict())
         flash('Review not found!')
         return redirect(url_for('main.home'))
     if current_user.user_type == 'nurse':
@@ -57,3 +60,14 @@ def retrieve_reviews(id, review_id=None):
             )
         flash('Nurse not found!')
     return redirect(url_for('main.home'))
+
+
+# @reviews.route('/reviews/<review_id>', methods=['DELETE'],
+#            strict_slashes=False)
+# def delete_review(id, review_id):
+#     review = Review.query.filter_by(id=review_id).first()
+#     if review:
+#         db.session.delete(review)
+#         db.session.commit()
+#         return jsonify({"message":"Review deleted successfully!"})
+#     return jsonify({"error":"Review not found!"})

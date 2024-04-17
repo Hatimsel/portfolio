@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Users forms
+"""
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
@@ -12,6 +14,7 @@ from NurseNetwork.models import User
 
 
 class RegistrationForm(FlaskForm):
+    """Registration form"""
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
@@ -34,6 +37,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """Login form"""
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -41,6 +45,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class UpdateAccountForm(FlaskForm):
+    """Update account form"""
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
@@ -63,6 +68,7 @@ class UpdateAccountForm(FlaskForm):
 
 
 class RequestResetForm(FlaskForm):
+    """Request resetting password form"""
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')
@@ -73,6 +79,7 @@ class RequestResetForm(FlaskForm):
             raise ValidationError('There is no account with this email!')
 
 class ResetPasswordForm(FlaskForm):
+    """Resetting password form"""
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])

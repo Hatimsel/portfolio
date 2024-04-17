@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Service routes
+"""
 from flask import render_template, url_for, flash, redirect, request, abort, Blueprint, jsonify
 from flask_login import current_user, login_required
 from NurseNetwork import db
@@ -13,6 +15,7 @@ services = Blueprint('services', __name__)
 @services.route("/service/new", strict_slashes=False, methods=['GET', 'POST'])
 @login_required
 def new_service():
+    """Creates a new service"""
     if current_user.user_type != 'nurse':
         abort(403)
     form = ServiceForm()
@@ -32,6 +35,7 @@ def new_service():
 @services.route("/service/<id>", strict_slashes=False,
            methods=['GET'])
 def service(id):
+    """Retrieves a service"""
     service = Service.query.get_or_404(id)
     return render_template('service.html', title=service.title,
                            service=service, Nurse=Nurse, User=User)
@@ -41,6 +45,7 @@ def service(id):
            methods=['Get', 'POST'])
 @login_required
 def update_service(id):
+    """Updates a service"""
     service = Service.query.get_or_404(id)
     nurse = Nurse.query.get_or_404(service.nurse_id)
     user = User.query.get_or_404(nurse.user_id)
@@ -63,6 +68,7 @@ def update_service(id):
            methods=['POST'])
 @login_required
 def delete_service(id):
+    """Deletes a service"""
     service = Service.query.get_or_404(id)
     nurse = Nurse.query.get_or_404(service.nurse_id)
     user = User.query.get_or_404(nurse.user_id)
@@ -78,6 +84,7 @@ def delete_service(id):
 @services.route('/nurses/<id>/services/<service_id>', methods=['GET'],
            strict_slashes=False)
 def retrieve_nurse_services(id, service_id=None):
+    """Retrieves services assigned to a particular nurse"""
     if service_id:
         service = Service.query.filter_by(id=service_id).first()
         if service:

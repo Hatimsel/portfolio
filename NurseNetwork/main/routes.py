@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Main pages
+"""
 from flask import render_template, request, Blueprint
 from NurseNetwork.models import Service, User, Nurse
 
@@ -24,4 +26,3 @@ def about():
 @main.route("/privacy", strict_slashes=False)
 def privacy():
     return render_template('privacy.html')
-

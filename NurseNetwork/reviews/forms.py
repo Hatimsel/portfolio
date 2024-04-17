@@ -1,11 +1,14 @@
 #!/usr/bin/python3
-
+"""
+Review forms
+"""
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField, TextAreaField, validators
 from wtforms.validators import DataRequired
 
 
 class ReviewForm(FlaskForm):
+    """Review class"""
     feedback = TextAreaField('Feedback')
     stars = IntegerField('Stars', validators=[
                         validators.NumberRange(

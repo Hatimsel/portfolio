@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""""""
+"""
+Running the flask app
+"""
 from NurseNetwork import app
 
 if __name__ == "__main__":

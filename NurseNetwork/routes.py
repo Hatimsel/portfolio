@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""""""
+"""
+API serving JSON content
+"""
 import secrets
 import os
 from flask import jsonify, abort, request

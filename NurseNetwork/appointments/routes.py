@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+Appointment routes
+"""
 from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import current_user, login_required
 from NurseNetwork import db
@@ -14,6 +16,7 @@ appointments = Blueprint('appointments', __name__)
                     strict_slashes=False)
 @login_required
 def book_appointment(id):
+    """Books a new appointment"""
     form = AppointmentForm()
     if form.validate_on_submit():
         service = Service.query.filter_by(id=id).first()
@@ -40,6 +43,7 @@ def book_appointment(id):
                     strict_slashes=False)
 @login_required
 def retrieve_appointments(id):
+    """Retrieves an appointment"""
     if current_user.user_type == 'nurse':
         nurse = Nurse.query.filter_by(user_id=id).first()
         if nurse:
