@@ -1,6 +1,6 @@
 # NurseNetwork
 
-![NurseNetwork Banner](../../Downloads/landingpage.png)
+![NurseNetwork Banner](./landingpage.png)
 
 ## Introduction
 
